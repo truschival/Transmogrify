@@ -13,7 +13,7 @@ list(APPEND CMAKE_MODULE_PATH  ${CMAKE_SOURCE_DIR}/CMakeModules/)
 # Project Name
 project (transmogclient)
 # Project Version
-SET(PROJECT_VERSION "0.1")
+SET(PROJECT_VERSION "0.2")
 message(STATUS "")
 message(STATUS "Running ${CMAKE_COMMAND} ${CMAKE_VERSION} on ${CMAKE_PROJECT_NAME} v${PROJECT_VERSION}" )
 
