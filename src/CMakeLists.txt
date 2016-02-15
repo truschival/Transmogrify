@@ -14,7 +14,10 @@ set(SRCS
 #-----
 add_executable(${BINARY_NAME} ${SRCS})
 # Executable linked with project library
-target_link_libraries(${BINARY_NAME} ${TRANSMOG_LIBRARIES})
+target_link_libraries(
+	${BINARY_NAME} 
+	LibTransmog::transmog
+)
 
 #-----
 # Install

@@ -2,30 +2,33 @@
 # Top-level CMakeLists.txt for transmogclient
 ##
 
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 3.2)
+SET(CMAKE_CXX_STANDARD 11 ) 			# We want at least C++11 Standard
 set(CMAKE_VERBOSE_MAKEFILE  OFF)
 set(CMAKE_COLOR_MAKEFILE ON)
 set(CMAKE_WARN_DEPRECATED ON)
+SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Add local macros for KBuild etc
-list(APPEND CMAKE_MODULE_PATH  ${CMAKE_SOURCE_DIR}/CMakeModules/)
+list(APPEND CMAKE_MODULE_PATH  ${CMAKE_SOURCE_DIR}/cmake/)
 
 #-------------------------------------------------------------------------------
 # Project Name
-project (transmogclient)
+project (transmogclient )
 # Project Version
 SET(PROJECT_VERSION "0.1")
 message(STATUS "")
 message(STATUS "Running ${CMAKE_COMMAND} ${CMAKE_VERSION} on ${CMAKE_PROJECT_NAME} v${PROJECT_VERSION}" )
 
 
-# Package-Config for components that CMake does not support directly
-include(FindPkgConfig)
+include(readComponents)
+find_package(LibTransmog COMPONENTS transmog CONFIG REQUIRED)
 
 
 #-------------------------------------------------------------------------------
 # user Configuration + Defaults
 #-------------------------------------------------------------------------------
-option(BUILD_EXE "Build transmogclient-Tool" Off)
+option(BUILD_EXE "Build transmogclient-Tool" On)
 
 message(STATUS "Trying to setup or guess build-variables:")
 
@@ -54,7 +57,7 @@ message(STATUS "------------------------------ " )
 #-------------------------------------------------------------------------------
 
 # Search for libtransmogrify using pkg-config
-pkg_check_modules("TRANSMOG"  REQUIRED libtransmog)
+# pkg_check_modules("TRANSMOG"  REQUIRED libtransmog)
 
 #-------------------------------------------------------------------------------
 # Output  configuration

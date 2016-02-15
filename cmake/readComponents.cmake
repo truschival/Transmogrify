@@ -1,0 +1,24 @@
+MACRO(SUBDIRLIST result curdir)
+  FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
+  SET(dirlist "")
+  FOREACH(child ${children})
+    IF(IS_DIRECTORY ${curdir}/${child})
+        LIST(APPEND dirlist ${child})
+    ENDIF()
+  ENDFOREACH()
+  SET(${result} ${dirlist})
+ENDMACRO()
+
+SET(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH}")
+SUBDIRLIST(SUBDIRS ${COMPONENT_DIR}/${BOARD})
+FOREACH(subdir ${SUBDIRS})
+      LIST(APPEND CMAKE_PREFIX_PATH ${COMPONENT_DIR}/${BOARD}/${subdir})
+ENDFOREACH()
+
+SUBDIRLIST(SUBDIRS ${STAGING_DIR}/${BOARD})
+FOREACH(subdir ${SUBDIRS})
+      LIST(APPEND CMAKE_PREFIX_PATH ${STAGING_DIR}/${BOARD}/${subdir})
+ENDFOREACH()
+
+# Strip duplicates
+LIST(REMOVE_DUPLICATES CMAKE_PREFIX_PATH)
